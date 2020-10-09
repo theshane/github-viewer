@@ -9,19 +9,41 @@
  */
 
 import React from 'react';
-import {SafeAreaView, View, Text} from 'react-native';
+import {SafeAreaView} from 'react-native';
+import {Page} from './Page';
 
-interface AppProps {
+interface GenericComponentProps {
   testID?: string;
+  dependencies?: {
+    getCommits: Function;
+    useState: [any, Function];
+  };
 }
 
-export const App = ({testID}: AppProps) => {
+export const App = ({testID}: GenericComponentProps) => {
   return (
     <>
       <SafeAreaView testID={testID}>
-        <View testID={`${testID}:Page`}>
-          <Text>Page</Text>
-        </View>
+        <Page
+          testID={`${testID}:Page`}
+          preProcessedCommits={[
+            {
+              sha: '12345332144314321',
+              name: 'Shane Burgess',
+              message: 'Tesst message',
+            },
+            {
+              sha: '12345332144314322',
+              name: 'Shane Burgess',
+              message: 'Tesst message',
+            },
+            {
+              sha: '12345332144314323',
+              name: 'Shane Burgess',
+              message: 'Tesst message',
+            },
+          ]}
+        />
       </SafeAreaView>
     </>
   );
