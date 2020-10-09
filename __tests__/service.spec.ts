@@ -1,13 +1,6 @@
 import {testCommits} from './fixtures/testData';
 import {getCommits} from '../src/services/httpService';
-import axios from 'axios';
 import moxios from 'moxios';
-
-jest.mock('axios');
-
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-mockedAxios.get.mockResolvedValue(testCommits);
 
 describe('httpService', () => {
   beforeEach(() => {
