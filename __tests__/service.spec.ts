@@ -1,21 +1,24 @@
-import {testCommits} from './testData';
+import {testCommits} from './fixtures/testData';
 import {getCommits} from '../src/services/httpService';
+import axios from 'axios';
 
 const mockGet = jest
   .fn()
   .mockImplementation(() => Promise.resolve(testCommits));
 
-const mockHttpService = {
-  get: mockGet,
-};
+jest.mock('axios');
+
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+mockedAxios.get.mockResolvedValue(testCommits);
 
 describe('httpService', () => {
   beforeEach(() => {
-    mockGet.mockReset();
+    jest.clearAllMocks();
   });
   it('fetches the correct url', async () => {
-    await getCommits(mockHttpService);
-    expect(mockGet).toHaveBeenCalledWith(
+    await getCommits();
+    expect(mockedAxios.get).toHaveBeenCalledWith(
       'https://api.github.com/repos/theshane/github-viewer/commits',
     );
   });

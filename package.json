@@ -31,7 +31,6 @@
     "typescript": "^3.8.3"
   },
   "jest": {
-    "preset": "react-native",
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -39,6 +38,9 @@
       "jsx",
       "json",
       "node"
+    ],
+    "testPathIgnorePatterns" : [
+      "__tests__/fixtures" 
     ]
   }
 }
