@@ -17,7 +17,7 @@ export const App = () => {
   return (
     <>
       <SafeAreaView>
-        <Text>Hello</Text>
+        <Text>starcoins</Text>
       </SafeAreaView>
     </>
   );
