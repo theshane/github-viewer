@@ -9,15 +9,19 @@
  */
 
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, View, Text} from 'react-native';
 
-declare const global: {HermesInternal: null | {}};
+interface AppProps {
+  testID?: string;
+}
 
-export const App = () => {
+export const App = ({testID}: AppProps) => {
   return (
     <>
-      <SafeAreaView>
-        <Text>starcoins</Text>
+      <SafeAreaView testID={testID}>
+        <View testID={`${testID}:Page`}>
+          <Text>Page</Text>
+        </View>
       </SafeAreaView>
     </>
   );
