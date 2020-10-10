@@ -12,7 +12,6 @@ import moxios from 'moxios';
 import renderer, {act, ReactTestRenderer} from 'react-test-renderer';
 import {processCommit} from '../src/services/httpService';
 
-// I am not sure why I need this
 jest.useFakeTimers();
 
 describe('Page', () => {
@@ -22,7 +21,9 @@ describe('Page', () => {
       app = renderer.create(
         <Page
           testID="GHSpec:Page"
-          preProcessedCommits={testCommits.map((commit) => processCommit(commit))}
+          preProcessedCommits={testCommits.map((commit) =>
+            processCommit(commit),
+          )}
         />,
       );
     });
@@ -57,7 +58,9 @@ describe('Page', () => {
       'GHSpec:Page:ListContainer:ListItem:0:message',
     );
     expect(itemMessage).toBeDefined();
-    expect(itemMessage?.props.children).toEqual(testCommits[0].commit.message);
+    expect(itemMessage?.props.children).toEqual(
+      `${testCommits[0].commit.message.slice(0, 30)}...`,
+    );
   });
 
   it('should render the sha in the list item', () => {
@@ -66,7 +69,9 @@ describe('Page', () => {
       'GHSpec:Page:ListContainer:ListItem:0:sha',
     );
     expect(itemMessage).toBeDefined();
-    expect(itemMessage?.props.children).toEqual(testCommits[0].sha);
+    expect(itemMessage?.props.children).toEqual(
+      `sha: ${testCommits[0].sha.slice(0, 7)}...`,
+    );
   });
 
   it('should render the name in the list item', () => {

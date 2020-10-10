@@ -9,34 +9,20 @@
  */
 
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, Text, StyleSheet} from 'react-native';
 import {Page} from './Page';
 
+const styles = StyleSheet.create({
+  safeAreaStyle: {margin: 10, flex: 1},
+  headerStyle: {fontWeight: 'bold', fontSize: 24, alignSelf: 'center'},
+});
 
 export const App = () => {
   return (
     <>
-      <SafeAreaView testID={'GHApp'}>
-        <Page
-          testID="GHApp:Page"
-          preProcessedCommits={[
-            {
-              sha: '12345332144314321',
-              name: 'Shane Burgess',
-              message: 'Tesst message',
-            },
-            {
-              sha: '12345332144314322',
-              name: 'Shane Burgess',
-              message: 'Tesst message',
-            },
-            {
-              sha: '12345332144314323',
-              name: 'Shane Burgess',
-              message: 'Tesst message',
-            },
-          ]}
-        />
+      <SafeAreaView testID={'GHApp'} style={styles.safeAreaStyle}>
+        <Text style={styles.headerStyle}>GithubViewerBurgess</Text>
+        <Page testID="GHApp:Page" />
       </SafeAreaView>
     </>
   );

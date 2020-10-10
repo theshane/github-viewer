@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {ItemProps} from '../ui/Page';
 
 export const processCommit = (commit: any) => {
   return {
@@ -14,7 +15,7 @@ export const getCommits = () => {
   return axios
     .get('https://api.github.com/repos/theshane/github-viewer/commits')
     .then((response: any) => {
-      const processed = response.data.map((commit: any) => {
+      const processed = response.data.map((commit: ItemProps) => {
         return processCommit(commit);
       });
       return processed;

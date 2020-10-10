@@ -9,7 +9,7 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, Text} from 'react-native';
+import {View, FlatList, Text, StyleSheet} from 'react-native';
 import {getCommits} from '../services/httpService';
 
 interface ComponentProps {
@@ -17,13 +17,37 @@ interface ComponentProps {
   preProcessedCommits?: ItemProps[];
 }
 
-interface ItemProps {
+export interface ItemProps {
   sha: string;
   message: string;
   name: string;
+  date: string;
   index?: number;
   testID?: string;
 }
+
+const styles = StyleSheet.create({
+  itemStyle: {
+    borderBottomColor: '#e1e4e8',
+    borderBottomWidth: 1,
+    padding: 10,
+    flex: 1,
+  },
+  messageContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  nameContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  bold: {fontWeight: 'bold'},
+  pageContainer: {borderColor: '#e1e4e8', borderWidth: 1, borderRadius: 6},
+  fullHeight: {height: '100%'},
+  muted: {color: '#999999'},
+});
 
 const Item = ({
   sha,
@@ -31,13 +55,26 @@ const Item = ({
   name,
   testID = 'Page:ListContainer:ListItem',
   index = 0,
+  date,
 }: ItemProps) => {
-    console.log(`${testID}:${index}:name`);
   return (
-    <View testID={`${testID}:${index}`}>
-      <Text testID={`${testID}:${index}:message`}>{message}</Text>
-      <Text testID={`${testID}:${index}:sha`}>{sha}</Text>
-      <Text testID={`${testID}:${index}:name`}>{name}</Text>
+    <View testID={`${testID}:${index}`} style={styles.itemStyle}>
+      <View style={styles.messageContainer}>
+        <Text testID={`${testID}:${index}:message`} style={styles.bold}>
+          {`${message.slice(0, 30)}...`}
+        </Text>
+        <Text testID={`${testID}:${index}:sha`} style={styles.muted}>
+          {`sha: ${sha.slice(0, 7)}...`}
+        </Text>
+      </View>
+      <View style={styles.nameContainer}>
+        <Text testID={`${testID}:${index}:name`} style={styles.muted}>
+          {name}
+        </Text>
+        <Text testID={`${testID}:${index}:date`} style={styles.muted}>
+          {date}
+        </Text>
+      </View>
     </View>
   );
 };
@@ -61,18 +98,20 @@ export const Page = ({
         message={item.message}
         name={item.name}
         index={index}
+        date={item.date}
         testID={`${testID}:ListContainer:ListItem`}
       />
     );
   };
   return (
     <>
-      <View testID={`${testID}:container`}>
+      <View testID={`${testID}:container`} style={styles.pageContainer}>
         <FlatList
           data={commits}
           testID={`${testID}:ListContainer`}
           renderItem={_renderItem}
           keyExtractor={(item: ItemProps) => item.sha}
+          style={styles.fullHeight}
         />
       </View>
     </>
