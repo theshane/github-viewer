@@ -66,20 +66,3 @@ describe('processCommit', () => {
     expect(processedCommits[0].message).toBe(testCommits[0].commit.message);
   });
 });
-
-describe('groupByDates', () => {
-  it('should group the commits by date', () => {
-    const processedCommits = testCommits.map((commit) => processCommit(commit));
-    const groupedByDate: any = groupByDates(processedCommits);
-    expect(groupedByDate['2020-02-11'][0].sha).toEqual(processedCommits[0].sha);
-    expect(groupedByDate['2020-02-11'][0].name).toEqual(
-      processedCommits[0].name,
-    );
-    expect(groupedByDate['2020-02-11'][0].message).toEqual(
-      processedCommits[0].message,
-    );
-    expect(groupedByDate['2020-02-11'][0].date).toEqual(
-      processedCommits[0].date,
-    );
-  });
-});

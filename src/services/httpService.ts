@@ -10,17 +10,6 @@ export const processCommit = (commit: any) => {
   };
 };
 
-export const groupByDates = (commits: any) => {
-  return commits.reduce((newCommitObject: any, commit: any) => {
-    const [dateKey] = commit.date.split('T');
-    if (!newCommitObject[dateKey]) {
-      newCommitObject[dateKey] = [];
-    }
-    newCommitObject[dateKey].push(commit);
-    return newCommitObject;
-  }, {});
-};
-
 export const getCommits = () => {
   return axios
     .get('https://api.github.com/repos/theshane/github-viewer/commits')
