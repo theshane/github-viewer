@@ -16,4 +16,4 @@ We are using axios to get the data. I chose not to use redux and sagas just beca
 
 All testing is done by using testIds for the ui. This is a pattern that we came up with in Tide and I beleive it is much more safe than looking for component types.
 
-[IOS](ios.png)
+![IOS](ios.png)
