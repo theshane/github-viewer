@@ -1,9 +1,5 @@
 import {testCommits} from './fixtures/testData';
-import {
-  getCommits,
-  groupByDates,
-  processCommit,
-} from '../src/services/httpService';
+import {getCommits, processCommit} from '../src/services/httpService';
 import moxios from 'moxios';
 
 describe('httpService', () => {
