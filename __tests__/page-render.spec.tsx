@@ -10,6 +10,7 @@ import moxios from 'moxios';
 
 // Note: test renderer must be required after react-native.
 import renderer, {act, ReactTestRenderer} from 'react-test-renderer';
+import {processCommit} from '../src/services/httpService';
 
 // I am not sure why I need this
 jest.useFakeTimers();
@@ -19,7 +20,10 @@ describe('Page', () => {
   beforeEach(() => {
     act(() => {
       app = renderer.create(
-        <Page testID="GHSpec" prefetchedCommits={testCommits.map} />,
+        <Page
+          testID="GHSpec:Page"
+          preProcessedCommits={testCommits.map((commit) => processCommit(commit))}
+        />,
       );
     });
     moxios.install();
@@ -30,7 +34,7 @@ describe('Page', () => {
   });
 
   it('should render the page component', () => {
-    const page = utilGetFirstByTestID(app, 'GHSpec:Page');
+    const page = utilGetFirstByTestID(app, 'GHSpec:Page:container');
     expect(page).toBeDefined();
   });
 

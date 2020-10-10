@@ -32,6 +32,7 @@ const Item = ({
   testID = 'Page:ListContainer:ListItem',
   index = 0,
 }: ItemProps) => {
+    console.log(`${testID}:${index}:name`);
   return (
     <View testID={`${testID}:${index}`}>
       <Text testID={`${testID}:${index}:message`}>{message}</Text>
@@ -46,7 +47,6 @@ export const Page = ({
   preProcessedCommits = [],
 }: ComponentProps) => {
   const [commits, setCommits] = useState(preProcessedCommits);
-
   useEffect(() => {
     preProcessedCommits.length === 0 &&
       getCommits().then((data) => {
@@ -61,16 +61,16 @@ export const Page = ({
         message={item.message}
         name={item.name}
         index={index}
-        testID={`${testID}:Page:ListContainer:ListItem`}
+        testID={`${testID}:ListContainer:ListItem`}
       />
     );
   };
   return (
     <>
-      <View testID={`${testID}:Page`}>
+      <View testID={`${testID}:container`}>
         <FlatList
           data={commits}
-          testID={`${testID}:Page:ListContainer`}
+          testID={`${testID}:ListContainer`}
           renderItem={_renderItem}
           keyExtractor={(item: ItemProps) => item.sha}
         />
