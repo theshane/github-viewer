@@ -10,7 +10,7 @@
 
 import React, {useEffect, useState} from 'react';
 import {View, FlatList, Text} from 'react-native';
-import {getCommits, processCommit} from '../services/httpService';
+import {getCommits} from '../services/httpService';
 
 interface ComponentProps {
   testID?: string;
