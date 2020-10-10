@@ -5,7 +5,20 @@ export const processCommit = (commit: any) => {
     sha: commit.sha,
     name: commit.commit.author.name,
     message: commit.commit.message,
+    date: commit.commit.author.date,
+    email: commit.commit.author.email,
   };
+};
+
+export const groupByDates = (commits: any) => {
+  return commits.reduce((newCommitObject: any, commit: any) => {
+    const [dateKey] = commit.date.split('T');
+    if (!newCommitObject[dateKey]) {
+      newCommitObject[dateKey] = [];
+    }
+    newCommitObject[dateKey].push(commit);
+    return newCommitObject;
+  }, {});
 };
 
 export const getCommits = () => {
