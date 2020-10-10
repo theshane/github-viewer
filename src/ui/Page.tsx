@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   pageContainer: {borderColor: '#e1e4e8', borderWidth: 1, borderRadius: 6},
   fullHeight: {height: '100%'},
   muted: {color: '#999999'},
+  noData: {padding: 15, alignSelf: 'center'},
 });
 
 const Item = ({
@@ -105,15 +106,21 @@ export const Page = ({
   };
   return (
     <>
-      <View testID={`${testID}:container`} style={styles.pageContainer}>
-        <FlatList
-          data={commits}
-          testID={`${testID}:ListContainer`}
-          renderItem={_renderItem}
-          keyExtractor={(item: ItemProps) => item.sha}
-          style={styles.fullHeight}
-        />
-      </View>
+      {commits.length ? (
+        <View testID={`${testID}:container`} style={styles.pageContainer}>
+          <FlatList
+            data={commits}
+            testID={`${testID}:ListContainer`}
+            renderItem={_renderItem}
+            keyExtractor={(item: ItemProps) => item.sha}
+            style={styles.fullHeight}
+          />
+        </View>
+      ) : (
+        <Text style={styles.noData}>
+          Unable to retreive data, please check your netwok settings.
+        </Text>
+      )}
     </>
   );
 };
